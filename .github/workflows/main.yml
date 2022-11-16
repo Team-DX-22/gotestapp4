@@ -56,7 +56,6 @@ jobs:
     name: Post Workflow Status To Slack
     needs:
       - vars
-      - test
     runs-on: ubuntu-latest
     steps:
       - name: Slack Workflow Notification
