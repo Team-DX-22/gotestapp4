@@ -34,7 +34,7 @@ jobs:
       - name: Clone Argo Repository
         run: git clone https://${REPO_TOKEN}@github.com/jaydeep-R/gitops.git .
         env:
-           REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
+           REPO_TOKEN: ${{secrets.ACCESS_TOKEN_GITHUB}}
        
       - name: Update gotestapp4 Tag Image
         run: |
@@ -52,7 +52,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
           repository: jaydeep-R/gitops
  
         
