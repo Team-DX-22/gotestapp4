@@ -85,9 +85,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m ":robot: [GitHub Action] Set new image tag to https://github.com/Team-DX-22/gotestapp4/commit/${{ needs.vars.outputs.tag }}"
-          git push
-        env:
-           REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
  
         
   slack-workflow-status:
