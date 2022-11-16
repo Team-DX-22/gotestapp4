@@ -24,7 +24,7 @@ jobs:
       - vars
     strategy:
       matrix:
-        go: ["1.17", "1.18"]
+        go: ["1.18"]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v1
@@ -32,28 +32,6 @@ jobs:
           go-version: 
       - run: go test -v ./...
   
-  docker:
-    name: Build and Push
-    needs:
-      - vars
-      - test
-    runs-on: ubuntu-latest
-    steps:
-       - uses: actions/checkout@v2
-       - name: Set up QEMU
-         uses: docker/setup-qemu-action@v2
-       - name: Set up Docker Buildx
-         uses: docker/setup-buildx-action@v2
-       - name: Login to DockerHub
-         uses: docker/login-action@v2
-         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-       - name: Build and push
-         uses: docker/build-push-action@v3
-         with:
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gotestapp4:${{ needs.vars.outputs.tag }}
   
   deploy:
     name: GitOps Deploy
@@ -61,7 +39,6 @@ jobs:
     needs:
       - vars
       - test
-      - docker
     steps:
       - name: Set Kustomize
         uses: imranismail/setup-kustomize@v1
