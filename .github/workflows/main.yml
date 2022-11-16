@@ -76,7 +76,6 @@ jobs:
     needs:
       - vars
       - test
-      - docker
     runs-on: ubuntu-latest
     steps:
       - name: Slack Workflow Notification
